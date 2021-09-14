@@ -3,8 +3,7 @@ class RecipesController < ApplicationController
     before_action :get_ingredients, only: [:new, :edit]
 
     def index
-        @recipe = Recipe.search(params[:query])
-        render :index
+        @recipes = Recipe.all
     end
 
     def show

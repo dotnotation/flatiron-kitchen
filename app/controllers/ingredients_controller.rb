@@ -1,9 +1,8 @@
 class IngredientsController < ApplicationController
-    before_action :set_ingredient, only: [:show, :edit]
+    before_action :set_ingredient, only: [:show, :edit, :update]
     
     def index
-        @ingredients = Ingredient.search(params[:query])
-        render :index
+        @ingredients = Ingredient.all
     end
 
     def show
