@@ -1,52 +1,49 @@
 class RecipesController < ApplicationController
-    before_action :set_recipe, only: [:show, :edit]
-    before_action :get_ingredients, only: [:new, :edit]
+    before_action :set_recipe, only: [:show, :edit, :update]
+    before_action :get_ingredients, only: [:new, :create, :edit, :update, :show, :index]
 
     def index
         @recipes = Recipe.all
-    end
-
-    def show
-    end
-
-    def new
-        @recipe = Recipe.new 
-    end
-
-    def create
+      end
+    
+      def new
+        @recipe = Recipe.new
+      end
+    
+      def create
         recipe = Recipe.new(recipe_params)
-
+    
         if recipe.save
-            redirect_to recipes_path
+          redirect_to recipes_path
         else
-            render :new
+          render :new
         end
-    end
-
-    def edit
-    end
-
-    def update
-        @recipe = Recipe.update(recipe_params)
-
+      end
+    
+      def edit
+      end
+    
+      def update
+        @recipe.update(recipe_params)
+    
         if @recipe.save
-            redirect_to recipes_path
+          redirect_to recipes_path
         else
-            render :edit
+          render :edit
         end
-    end
-
-    private
-
-    def set_recipe
+      end
+    
+      private
+    
+      def set_recipe
         @recipe = Recipe.find(params[:id])
-    end
-
-    def get_ingredients
+      end
+    
+      def get_ingredients
         @ingredients = Ingredient.all
-    end
-
-    def recipe_params
-        params.require(:recipe).permit(:name, ingredients_ids: [])
-    end
+      end
+    
+      def recipe_params
+        params.require(:recipe).permit(:name, ingredient_ids: [])
+      end
 end
